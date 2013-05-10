@@ -1,1 +1,1 @@
-This repository contains the sources for ldionne.com
+This repository contains the sources for my [personal website](http://ldionne.com).
