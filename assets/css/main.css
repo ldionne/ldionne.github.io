@@ -1,0 +1,16 @@
+body {
+  background-color: #e8e8e8;
+  color: #403f3c;
+}
+#main {
+  margin-top: 10em;
+}
+.dot-list li:first-child a {
+  padding-left: 0;
+}
+.dot-list li + li:before {
+  content: "·";
+}
+.dot-list a {
+  padding-left: 10px;
+}
