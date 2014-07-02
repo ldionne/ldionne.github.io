@@ -1,0 +1,149 @@
+\documentclass[10pt]{moderncv}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[super]{nth}
+\usepackage[hscale=0.8, vscale=0.825]{geometry} % required to fit on one page. should be scale=0.8
+\nopagenumbers
+
+% Links do not appear colored if we only use \href.
+\newcommand{\myhref}[3][blue]{\href{#2}{\color{#1}{#3}}}
+
+\moderncvtheme[blue]{classic}
+\firstname{Louis}
+\familyname{Dionne}
+\email{ldionne.2@gmail.com}
+\homepage{ldionne.com}
+
+
+\begin{document}
+\maketitle
+
+
+% \cventry{} % year
+%         {} % job title
+%         {} % employer
+%         {} % city
+%         {} % general description
+%         {} % details
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Education}
+\cventry{Jan 2013 -- present}{B.Sc Mathematics}{Université Laval}{Québec}{}{}
+
+\section{Experience}
+\cventry{2014 (ongoing)}{GSoC student with Boost}{\myhref{http://www.google-melange.com/gsoc/homepage/google/gsoc2014}{Google Summer of Code}}{}{}{
+    Work on \myhref{http://github.com/ldionne/hana}{Boost.Hana}
+}
+
+\cventry{2013}{Student volunteer}{\myhref{http://www.cppnow.org}{C++Now}}{Aspen}{}{
+    Help the conference staff with logistics, recording talks and other tasks
+}
+
+\cventry{2012}{Intern}{\myhref{http://www.coveo.com}{Coveo Solutions}}{Québec}{}{
+    \begin{itemize}
+        \item Conception and implementation of a deadlock detection system for
+              internal use
+        \item Presentations on C++ techniques and idioms to co-workers:
+            \begin{itemize}
+                \item The Boost.ConceptCheck library and associated TMP techniques
+                \item C++11 rvalue references
+            \end{itemize}
+    \end{itemize}
+}
+
+\cventry{2010}{Intern}{Department of Electrical Engineering of Université Laval}{Québec}{}{
+    Organization of the \nth{10} international conference on
+    \myhref{http://qirt.org}{Quantitative Infrared Thermography (QIRT)}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Talks}
+\cventry{2014}
+        {\myhref{http://ldionne.com/mpl11-cppnow-2014}{Towards painless metaprogramming}}
+        {\myhref{http://www.cppnow.org}{C++Now}}{Aspen}{}{}
+
+\cventry{2013}
+        {\myhref{http://ldionne.com/d2-cppnow-2013}{A system for resource deadlock prevention}}
+        {\myhref{http://www.cppnow.org}{C++Now}}{Aspen}{}{}
+
+\cventry{2013}
+        {\myhref{http://ldionne.com/d2-opencode12}{Deadlock detection with d2}}
+        {\myhref{http://www.opencode.ca}{OpenCode \#12}}{Québec}{}{}
+
+\cventry{2013}
+        {\myhref{http://docs.google.com/presentation/d/1HpjEz6dJauNoBxMGWzaNuOOoiVwqgISTNWNTwuOo-_8/edit?usp=sharing}{Concept based overloading in C++}}
+        {\myhref{http://www.opencode.ca}{OpenCode \#9}}{Québec}{}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Personal Projects}
+\newcommand{\PersonalProject}[4]{
+    \cvline{\myhref{#2}{#1}}{
+        \textbf{#3}\newline
+        #4
+    }
+}
+
+\PersonalProject{Boost.Hana}{http://github.com/ldionne/hana}
+{An experimental C++1y library for heterogeneous computation}{
+    Design and implementation of a library to manipulate heterogeneous
+    sequences at compile-time or at runtime. The library provides the
+    functionality of the Boost.MPL and Boost.Fusion behind a single purely
+    functional interface. The C++ type system is also extended with type
+    classes inspired by Haskell.}
+
+\PersonalProject{mpl11}{http://github.com/ldionne/mpl11}
+{Conception and implementation of a C++11 replacement for the Boost.MPL}{
+    Reimplemented the functionality of the Boost.MPL library using new
+    template metaprogramming techniques made possible by C++11. Redesigned
+    the API of the library using ideas from Haskell to make it more powerful,
+    easier to use and to extend.}
+
+\PersonalProject{d2}{http://github.com/ldionne/d2}
+{Conception and implementation of a deadlock detection system in C++}{
+    Detects deadlocks that would have happened under different thread scheduling
+    conditions by performing intrusive dynamic analysis on a non-deadlocking run
+    of a program. Additionally, provides satistics about lock and thread usage.}
+
+\PersonalProject{joy}{http://github.com/ldionne/joy}
+{Implementation of a preprocessor metaprogramming library}{
+    Implemented associative sequences and other utilities for preprocessor
+    metaprogramming on top of the
+    \myhref{http://sourceforge.net/projects/chaos-pp}{Chaos preprocessor library}.}
+
+\PersonalProject{nstl}{http://github.com/ldionne/nstl}
+{Conception and implementation of a generic algorithm library in pure C}{
+    Implemented a basic name mangling system and ``preprocessor-based classes''
+    using PMP techniques. Using these facilities, implemented a subset of the
+    C++ standard library algorithms. The result is a collection of generic
+    algorithms instantiable and usable from pure C without sacrificing type
+    safety or performance by using traditional techniques like pointers to void.}
+
+\PersonalProject{duck}{http://github.com/ldionne/duck}
+{Implementation of a minimal concept-based overloading library}{
+    Implemented a subset of Boost.ConceptCheck's concepts as metafunctions,
+    which allows overloading based on the modeling of a concept by a type.}
+
+\PersonalProject{cisp}{http://github.com/ldionne/cisp}
+{Implementation of a minimalist object system with the preprocessor}{
+    Created a system to manipulate complex preprocessor objects using
+    associative sequences imbued with object semantics.}
+
+\PersonalProject{nstl-lang}{http://github.com/ldionne/nstl-lang}
+{Implementation of a translator for a toy language in Python}{
+    Implemented basic parsing, semantic analysis and code generation to C.}
+
+\cvline{}
+{\textbf{Contributions to other projects}
+\begin{itemize}
+    \item Contribution of the \myhref{http://www.boost.org/doc/libs/1_55_0/libs/graph/doc/hawick_circuits.html}{hawick\_circuits} algorithm to Boost.Graph
+    \item Occasional patches to Boost (Spirit, Graph, Archive, MPL and others)
+    \item Active on the \myhref{http://news.gmane.org/gmane.comp.lib.boost.devel}{Boost.Dev} mailing list
+    \item CMake port of the \myhref{http://github.com/lemire/FastPFor}{FastPFor}
+          integer compression library's build system
+\end{itemize}}
+
+\end{document}
