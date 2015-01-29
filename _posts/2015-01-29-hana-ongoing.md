@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Hana: Metaprogramming made easy"
+comments: true
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

@@ -23,3 +23,7 @@ layout: default
     {% endfor %}
   </ul>
 </aside>
+
+{% if page.comments %}
+  {% include comments.html %}
+{% endif %}
