@@ -6,7 +6,7 @@ relative_permalinks: true
 title:            Louis Dionne
 tagline:          "Programming and Categories, Oh My!"
 url:              http://ldionne.com
-paginate:         1
+paginate:         3
 baseurl:          /
 author:
   name:           Louis Dionne
