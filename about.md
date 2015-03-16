@@ -5,10 +5,14 @@ title: About
 
 # Louis Dionne
 
-I am a 22 years old math and programming enthusiast seeking excellence in what I do.
+I am a 22 years old math and programming enthusiast
+seeking excellence in what I do.
 
-I also enjoy hiking, dark beer and classical music.
+My current interests revolve around functional programming, C++
+metaprogramming, category theory and the connection between those.
 
-[Resume](resume.pdf) &bull;
-[GitHub](https://github.com/ldionne) &bull;
+Besides math, I also enjoy hiking, dark beer and classical music.
+
+[Resume](/resume.pdf) &bull;
+[GitHub](http://github.com/ldionne) &bull;
 [Mail](mailto:ldionne.2@gmail.com)
