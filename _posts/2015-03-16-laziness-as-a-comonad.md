@@ -2,6 +2,7 @@
 layout: post
 title: Laziness as a Comonad
 comments: true
+tags: comonad laziness Hana
 ---
 
 This (first!) post will present my current understanding of how laziness can
