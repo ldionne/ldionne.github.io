@@ -331,11 +331,11 @@ can also implement quite easily. We can also observe that the type of
 `extend` is actually pretty close to that of `lazy`:
 
 $$
-    \mathrm{lazy} : (T \to U) \to (T \to Lazy(U))
+    \mathrm{lazy} : (T \to U) \to (T \to \mathrm{Lazy}(U))
 $$
 
 $$
-    \mathrm{extend} : (Lazy(T) \to U) \to (T \to Lazy(U))
+    \mathrm{extend} : (\mathrm{Lazy}(T) \to U) \to (T \to \mathrm{Lazy}(U))
 $$
 
 > __Note__: In Haskell, `->` is right associative, so `A -> B -> C` is
