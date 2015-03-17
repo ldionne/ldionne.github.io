@@ -325,25 +325,36 @@ extend :: (Lazy a -> b) -> Lazy a -> Lazy b
 {% endhighlight %}
 
 Looking at `extract`, it has exactly the same type as `eval`. `duplicate`
-does not seem to be very useful, but we could definitely write a function
-with that signature. Finally, `extend` looks like it should just turn a
-computation accepting a lazy argument into a lazy computation, which we
-can also implement quite easily. We can also observe that the type of
-`extend` is actually pretty close to that of `lazy`:
+does not seem to be very useful; it should take a computation that's already
+lazy and give it an additional layer of laziness. It would probably be useful
+to compose complex lazy computations, but probably not on its own. Finally,
+`extend` looks like it should just turn a computation accepting a lazy
+input and a lazy input into a lazy computation of the result. At this point,
+it is nice to observe that the type of `extend` is actually a special case of
+`lazy`'s type (modulo currying):
 
 $$
     \mathrm{lazy} : (T \to U) \to (T \to \mathrm{Lazy}(U))
 $$
 
 $$
-    \mathrm{extend} : (\mathrm{Lazy}(T) \to U) \to (T \to \mathrm{Lazy}(U))
+    \mathrm{extend} : (\mathrm{Lazy}(T) \to U) \to (\mathrm{Lazy}(T) \to \mathrm{Lazy}(U))
 $$
 
 > __Note__: In Haskell, `->` is right associative, so `A -> B -> C` is
 > actually equivalent to `A -> (B -> C)`, which is why `extend` in the
 > above type class is equivalent to the `extend` just above.
 
-Let's go. First, `extract` is just `eval`:
+Given a function that accepts `Lazy` values and a `Lazy` argument, `lazy`'s
+type becomes:
+
+$$
+    \mathrm{lazy} : (\mathrm{Lazy}(T) \to U) \to (\mathrm{Lazy}(T) \to \mathrm{Lazy}(U))
+$$
+
+which is exactly the same as `extend`'s type. This should give us a clue
+that `extend` and `lazy` may very well be the same thing. Let's go. First,
+`extract` is just `eval`:
 
 {% highlight c++ %}
 template <typename Computation>
@@ -379,15 +390,13 @@ required because `extend` can be implemented in terms of `duplicate` and
 // We want to return a Lazy(U)
 template <typename F, typename Computation>
 auto extend(F f, Computation computation) {
-    return lazy([=]{ return f(computation); })();
+    return lazy(f)(computation);
 }
 {% endhighlight %}
 
 We're given a lazy computation of generalized type `Lazy(T)` and a function
-of type `Lazy(T) -> U`. What we do is create a function of type `() -> U`
-with the `[=]{ return f(computation); }` closure. We then apply this lazily,
-which effectively gives us a `Lazy(U)`.
-
+of type `Lazy(T) -> U`. We just use `lazy` to lazily apply the function to
+its argument, which effectively gives us a `Lazy(U)`.
 
 ### Proving the Comonad laws
 > __Note__: Again, this part is mostly technical. Feel free to skip or to
@@ -397,7 +406,9 @@ So far so good; we have definitions for an hypothetical Comonad representing
 laziness. The last thing we must check is whether the properties of a Comonad
 are respected by `Lazy`. There are two equivalent sets of laws that must be
 satisfied in order to be a Comonad, so we can pick either of those. Since I
-find it easier, I'll pick the one with `duplicate` and `transform`. Translated
+find it easier, I'll pick the one with `duplicate`, `transform` and `extract`,
+and then I'll make sure that my implementation of `extend` agrees with the
+default definition in terms of `transform` and `duplicate`. Translated
 from Haskell to C++, the laws look like:
 
 {% highlight c++ %}
@@ -486,7 +497,50 @@ eval(transform(duplicate(comp), duplicate))
     == duplicate(comp)
 {% endhighlight %}
 
-Hence, both expressions are equal and the third law holds. Phew!
+Hence, both expressions are equal and the third law holds. The last thing
+that's left to check is that our definition of `extend` agrees with the
+default definition in terms of `transform` and `duplicate`. It should be
+true that:
+
+{% highlight c++ %}
+extend(f, comp) == transform(duplicate(comp), f)
+{% endhighlight %}
+
+Evaluating the left hand side, we get
+
+{% highlight c++ %}
+eval(extend(f, comp))
+    // by definition of extend
+    == eval(lazy(f)(comp))
+
+    // by definition of eval
+    == f(comp)
+{% endhighlight %}
+
+Evaluating the right hand side, we get
+
+{% highlight c++ %}
+eval(transform(duplicate(comp), f))
+    // by definition of duplicate
+    == eval(transform(lazy([=]{ return comp; })(), f))
+
+    // by definition of transform
+    == eval(lazy(compose(f, eval))(lazy([=]{ return comp; })()))
+
+    // by definition of eval
+    == compose(f, eval)(lazy([=]{ return comp; })())
+
+    // by definition of compose
+    == f(eval(lazy([=]{ return comp; })()))
+
+    // by definition of eval
+    == f([=]{ return comp; }())
+    == f(comp)
+{% endhighlight %}
+
+And hence we see that both expressions are equal. This proves that our
+definition of `extend` was correct, which completes the demontration.
+Phew!
 
 
 ### So Lazy is a Comonad. What now?
@@ -509,16 +563,14 @@ $$
 which effectively matches our expectations. Since infinite streams can be
 represented as Comonads, we could, for example, peek the first element of
 one of two streams based on a boolean condition using `eval_if`. Whether
-this is useful is debatable and I'm not sure yet; honestly I have not
-found an interesting use case besides `Lazy` so far, but at least we
-did not lose anything. However, if we go a bit further down the rabbit
-hole, we can also see that `Lazy` is an Applicative Functor and a Monad.
-This observation is super useful because it tells us how to compose `Lazy`
-computations. The Functor/Applicative/Monad part is already implemented in
-Hana (see [here][7]), so I won't explain it further here. I'm not sure yet
-whether Hana will be supporting arbitrary Comonads as branches to a
-conditional expression, but one thing is certain: the conditionals
-will have to play well with the composition of `Lazy` computations.
+this is useful is debatable; honestly I have not found an interesting use
+case besides `Lazy` so far, but at least we did not lose anything.
+
+However, if we go a bit further down the rabbit hole, we can also see that
+`Lazy` is an Applicative Functor and a Monad. This observation is super
+useful because it tells us how to compose `Lazy` computations, which in
+turn can help us design a composable lazy branching system. This will be
+the subject of a next post, so stay tuned!
 
 
 [1]: http://github.com/ldionne/hana
@@ -527,4 +579,3 @@ will have to play well with the composition of `Lazy` computations.
 [4]: http://comonad.com/haskell/Comonads_1.pdf
 [5]: http://www.haskellforall.com/2013/02/you-could-have-invented-comonads.html
 [6]: https://hackage.haskell.org/package/comonad-4.2.4/docs/Control-Comonad.html
-[7]: https://github.com/ldionne/hana/blob/a8586ec1812e14e43dfd6867209412aa1d254e1a/include/boost/hana/lazy.hpp#L102
