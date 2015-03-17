@@ -573,6 +573,14 @@ turn can help us design a composable lazy branching system. This will be
 the subject of a next post, so stay tuned!
 
 
+#### Erratum
+17 Mar 2015: I realized I had made an error in `extend`'s signature when
+comparing it with that of `lazy`. Both signatures are not only similar,
+they are actually the same (modulo currying). I also added a proof that
+my definition of `extend` matches the default definition in terms of
+`duplicate` and `transform`.
+
+
 [1]: http://github.com/ldionne/hana
 [2]: http://www.boost.org/doc/libs/release/libs/mpl/doc/index.html
 [3]: http://stackoverflow.com/questions/8428554/what-is-the-comonad-typeclass-in-haskell
