@@ -5,7 +5,7 @@ title: About
 
 # Louis Dionne
 
-I am a 22 years old math and programming enthusiast
+I am a 23 years old math and programming enthusiast
 seeking excellence in what I do.
 
 My current interests revolve around functional programming, C++
