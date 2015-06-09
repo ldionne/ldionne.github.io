@@ -56,44 +56,7 @@
 
 #elif defined(HANA)
 
-    #include <boost/hana/integral.hpp>
-    #include <boost/hana/range.hpp>
-    #include <boost/hana/tuple.hpp>
 
-    #include <cstddef>
-    using namespace hana;
-
-
-    template <typename Res, typename Tuples, std::size_t ...i,
-                                             std::size_t ...j>
-    Res tuple_cat_impl(Tuples&& tuples, std::index_sequence<i...>,
-                                        std::index_sequence<j...>)
-    {
-        return Res{
-            std::get<j>(std::get<i>(std::forward<Tuples>(tuples)))...
-        };
-    }
-
-    template <typename Specialization>
-    constexpr auto to_tuple_t = sizeof(Specialization) == 1 ? throw : throw;
-
-    template <template <typename ...> class Template, typename ...T>
-    constexpr auto to_tuple_t<Template<T...>> = hana::tuple_t<T...>;
-
-    template <typename ...Tuples, typename Res = typename decltype(
-        unpack(flatten(tuple(to_tuple_t<Tuples>...)), template_<std::tuple>)
-    )::type>
-    Res tuple_cat(Tuples&& ...tuples) {
-        constexpr std::size_t N = sizeof...(Tuples);
-        _tuple<Tuples&&...> xs{std::forward<Tuples>(tuples)...};
-        auto inner = flatten(zip.with(fill, xs, to<Tuple>(range_c<int, 0, N>)));
-        auto outer = flatten(tuple(to<Tuple>(range(0_c, length(tuples)))...));
-        return tuple_cat_impl<Res>(
-            std::move(xs),
-            to<ext::std::IntegerSequence<std::size_t>>(inner),
-            to<ext::std::IntegerSequence<std::size_t>>(outer)
-        );
-    }
 
 #elif defined(HANA_CONCAT)
 

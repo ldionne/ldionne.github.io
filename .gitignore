@@ -39,3 +39,7 @@ validation-report.json
 
 # Folders to ignore
 node_modules
+
+# Ignore external dependencies and build directory for code snippets
+/_code/ext/
+/_code/build/
