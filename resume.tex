@@ -32,8 +32,12 @@
 \cventry{Jan 2013 -- present}{B.Sc Mathematics}{Université Laval}{Québec}{}{}
 
 \section{Experience}
-\cventry{2014}{GSoC student with Boost}{\myhref{http://www.google-melange.com/gsoc/homepage/google/gsoc2014}{Google Summer of Code}}{}{}{
-    Work on \myhref{http://github.com/ldionne/hana}{Boost.Hana}
+\cventry{2014 - present}{Various C++ contracting work}{}{}{}{}
+
+\cventry{2014 - present}{GSoC student with Boost}{\myhref{http://www.google-melange.com/gsoc/homepage/google/gsoc2014}{Google Summer of Code}}{}{}{
+    Work on \myhref{http://github.com/ldionne/hana}{Boost.Hana} during the summers
+    of 2014 and 2015. I also received a grant by the \myhref{https://goo.gl/JVj1me}
+    {Boost Steering Committee} to continue my GSoC work during the winter of 2015.
 }
 
 \cventry{2013}{Student volunteer}{\myhref{http://www.cppnow.org}{C++Now}}{Aspen}{}{
@@ -53,13 +57,18 @@
 }
 
 \cventry{2010}{Intern}{Department of Electrical Engineering of Université Laval}{Québec}{}{
-    Organization of the \nth{10} international conference on
-    \myhref{http://qirt.org}{Quantitative Infrared Thermography (QIRT)}
+   Organization of the \nth{10} international conference on
+   \myhref{http://qirt.org}{Quantitative Infrared Thermography (QIRT)}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Talks}
+\cventry{2015}
+        {Metaprogramming: a paradigm shift (\myhref{http://ldionne.github.io/hana-cppnow-2015}{slides})}
+        {\myhref{http://www.cppnow.org}{C++Now}}{Aspen}{}
+        {Awards for the best presentation and the most inspiring presentation}
+
 \cventry{2014}
         {Metaprogramming in C++14 (\myhref{http://ldionne.github.io/hana-opencode-xxii}{french only slides})}
         {\myhref{http://www.opencode.ca}{OpenCode XXII}}{Québec}{}{}
@@ -96,12 +105,13 @@
 }
 
 \PersonalProject{Boost.Hana}{http://github.com/ldionne/hana}
-{An experimental C++1y library for heterogeneous computation}{
+{A new C++14 Boost library for heterogeneous computation}{
     Design and implementation of a library to manipulate heterogeneous
-    sequences at compile-time or at runtime. The library provides the
-    functionality of the Boost.MPL and Boost.Fusion behind a single purely
-    functional interface. The C++ type system is also extended with type
-    classes inspired by Haskell.}
+    sequences at compile-time and at runtime. The library introduces a
+    new paradigm for expressing meta-computations with regular functions
+    instead of quirky template tricks, achieving a new level of expressiveness.
+    The library is implemented using the most recent advances in C++14
+    metaprogramming, making long compile-times (mostly) a thing of the past.}
 
 \PersonalProject{mpl11}{http://github.com/ldionne/mpl11}
 {Conception and implementation of a C++11 replacement for the Boost.MPL}{
