@@ -7,19 +7,22 @@ tags: variant tuple "product type" "sum type"
 
 The goal of this post is to introduce sum types and product types from a
 very high level perspective, and to try and derive an intuition for what
-should `tuple<>` and `variant<>` mean. This is a simplistic analysis of
-the mathematical intuition behind `tuple<>` and `variant<>`, and by no
-means a thoroughly crafted design argument. More specifically, this short
-post was lifted from an email I was going to send in answer to [this post][1]
-on the Boost.Devel mailing list. The email was getting a bit long and I
-thought it was a good candidate for a short blog post, so here we are.
+the meaning of `tuple<>` and `variant<>` should be. The mathematics in
+this post are purposefully kept a bit vague, because being more formal
+would make the post heavier.
+
+> This post was lifted from an email I was going to send in answer to
+> [this message][1] on the Boost.Devel mailing list. The email was getting
+> a bit long and I thought it was a good candidate for a short blog post,
+> so here we are. Check out the initial thread if you're interested in
+> the `std::variant` proposal.
 
 Without getting into category theoretical stuff, we know that a tuple is
-what's called a "product type", i.e. the type `tuple<A, B>` is essentially
+what's called a _product type_, i.e. the type `tuple<A, B>` is essentially
 equivalent to the cartesian product of the types `A` and `B`. Similarly, a
-variant is what's called a "sum type", i.e. the type `variant<A, B>` is
+variant is what's called a _sum type_, i.e. the type `variant<A, B>` is
 essentially equivalent to a disjoint union of `A` and `B`, which is a set
-containing all elements of A and all elements of B, with duplicates.
+containing all elements of `A` and all elements of `B`, with duplicates.
 
 Tuples and variants with arities other than 2 are simply syntactic sugar.
 Indeed, we have that
@@ -29,12 +32,21 @@ $$
     \mathtt{variant<A, B, C>} \simeq \mathtt{variant<A, variant<B, C>>}
 $$
 
-where $$\simeq$$ means "is morally equivalent to". So the arities higher than
-2 are really just provided for convenience. For the remainder of this post,
-we'll hence consider only tuples and variants with arities lower than or equal
-to 2. Continuing on this road, we can see that some types have a special
-interaction with these "product types" and "sum types". Indeed, consider
-the following type, often called the "unit type":
+where $$\simeq$$ means "is morally equivalent to". This relation of being
+"morally equivalent to" can be formalised with the notion of [isomorphism][2]
+in category theory. We won't define isomorphisms in this post to keep things
+light, but for the purpose of this post you can think of two types as being
+"morally equivalent" if they can be converted to one another _without any loss
+of information_.
+
+Returning to the above equivalences, we can see that arities higher than 2 are
+really just provided for convenience. Indeed, you could express a n-ary tuple
+or variant by applying the above equations recursively, and you would always
+end up with nested binary tuples or variants. Hence, for the remainder of this
+post, we will only consider tuples and variants with arities lower than or
+equal to 2. Continuing on this road, we can see that some types have a special
+interaction with these product types and sum types. Indeed, consider the
+following type, often called the "unit type":
 
 {% highlight c++ %}
 struct Unit { };
@@ -108,9 +120,8 @@ $$
 
 Hence, you could create an object of type `tuple<>`, but you can't create an
 object of type `variant<>`; trying to do so should be a compile-time error.
-I can't really back my intuition by more mathematics than considering the
-behavior of products and sums on empty collections. Indeed, we normally
-define
+This intuition is backed by the usual behavior of products and sums on empty
+collections as defined in mathematics. Indeed, we normally define
 
 $$
     \prod_{x \, \in \, \emptyset} x = 1 \\
@@ -120,4 +131,8 @@ $$
 This is convenient in mathematics, and I also find it quite intuitive.
 Naively, I think the design of `variant<>` and `tuple<>` should follow this.
 
+### Edits
+15 Jul 2015: Add more information about isomorphisms and reformulate the intro
+
 [1]: http://thread.gmane.org/gmane.comp.lib.boost.devel/261503/focus=261881
+[2]: https://en.wikipedia.org/wiki/Isomorphism
