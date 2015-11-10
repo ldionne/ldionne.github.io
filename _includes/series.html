@@ -1,0 +1,17 @@
+<div class="seriesNote">
+    <p>This article is part of the <strong>{{page.series}}</strong> series:</p>
+    <ul>
+    {% assign count = '0' %}
+    {% for post in site.posts reversed %}
+    {% if post.series == page.series %}
+        {% capture count %}{{ count | plus: '1' }}{% endcapture %}
+        <li>Part {{ count }} -
+        <a href="{{post.url}}">{{post.title}}</a>
+        {% if page.url == post.url %}
+            (this article)
+        {% endif %}
+        </li>
+    {% endif %}
+    {% endfor %}
+    </ul>
+</div>
