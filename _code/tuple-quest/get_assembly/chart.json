@@ -1,0 +1,60 @@
+<%
+require 'open3'
+require 'pathname'
+require 'tilt'
+
+
+RANGE = [0, 10, 20, 30, 40, 50, 100, 200, 300, 500]
+
+def count_assembly(file)
+    template = Pathname.new(file).expand_path
+    cpp = Pathname.new('__tmp.cpp').expand_path
+    as = Pathname.new('__tmp.s').expand_path
+    command = "clang++ -std=c++14 -ftemplate-depth=-1 -O3 -S -o #{as} #{cpp}"
+
+    lines = []
+    RANGE.each do |n|
+        code = Tilt::ERBTemplate.new(template).render(nil, input_size: n)
+        cpp.write(code)
+        stdout, stderr, status = Open3.capture3(command)
+        raise "compilation error: #{stderr}\n\n#{code}" if not status.success?
+        lines << [n, `wc -l #{as}`.to_i]
+    end
+
+    return lines
+
+ensure
+    cpp.delete if cpp.exist?
+    as.delete if as.exist?
+end
+
+%>
+
+{
+    "title": {
+        "text": "Size of assembly for accessing elements inside a tuple"
+    },
+    "yAxis": {
+        "title": {
+            "text": "Number of assembly lines"
+        },
+        "minTickInterval": 1
+    },
+    "tooltip": {
+        "valueSuffix": " lines"
+    },
+    "series": [
+        {
+            "name": "atoms",
+            "data": <%= count_assembly('atoms.erb.cpp') %>
+        },
+        {
+            "name": "flat",
+            "data": <%= count_assembly('flat.erb.cpp') %>
+        },
+        {
+            "name": "baseline",
+            "data": <%= count_assembly('baseline.erb.cpp') %>
+        }
+    ]
+}

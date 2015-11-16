@@ -23,6 +23,7 @@ macro(append_flag testname flag)
 endmacro()
 
 append_flag(HAS_FTEMPLATE_BACKTRACE_LIMIT  -ftemplate-backtrace-limit=0)
+append_flag(HAS_FTEMPLATE_DEPTH            -ftemplate-depth=-1)
 append_flag(HAS_PEDANTIC                   -pedantic)
 append_flag(HAS_STDCXX1Y                   -std=c++1y)
 append_flag(HAS_W                          -W)
@@ -66,3 +67,4 @@ include_directories(${Meta_INCLUDE_DIR})
 ##############################################################################
 # add_subdirectory(revisiting-the-tiny-mpl)
 add_subdirectory(pack-indexing)
+add_subdirectory(tuple-quest)
