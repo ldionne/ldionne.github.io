@@ -41,10 +41,12 @@ end
         {
             "name": "atoms",
             "data": <%= measure('atoms.erb.cpp') %>
-        },
-        {
+        }, {
             "name": "flat",
             "data": <%= measure('flat.erb.cpp') %>
+        }, {
+            "name": "lambda",
+            "data": <%= measure('lambda.erb.cpp') %>
         }
     ]
 }

@@ -3,6 +3,7 @@
 
 #include "../atoms.hpp"
 #include "../flat.hpp"
+#include "../lambda.hpp"
 namespace ns = atoms;
 
 
@@ -19,6 +20,10 @@ int main() {
     atoms::tuple<
         <%= (0..tuple_size).map { |n| "x<#{n}>" }.join(', ') %>
     > t_atoms;
+
+    lambda::tuple<
+        <%= (0..tuple_size).map { |n| "x<#{n}>" }.join(', ') %>
+    > t_lambda;
 
     ns::get<<%= input_size %>>(t_atoms);
 }

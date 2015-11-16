@@ -4,7 +4,7 @@
 #include "../atoms.hpp"
 #include "../flat.hpp"
 #include "../lambda.hpp"
-namespace ns = flat;
+namespace ns = lambda;
 
 
 template <int>

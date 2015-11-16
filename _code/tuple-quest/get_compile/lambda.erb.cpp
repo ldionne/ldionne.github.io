@@ -25,5 +25,5 @@ int main() {
         <%= (0..tuple_size).map { |n| "x<#{n}>" }.join(', ') %>
     > t_lambda;
 
-    ns::get<<%= input_size %>>(t_flat);
+    ns::get<<%= input_size %>>(t_lambda);
 }
