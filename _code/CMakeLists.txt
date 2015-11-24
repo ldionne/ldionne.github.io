@@ -50,9 +50,9 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 file(DOWNLOAD "https://raw.githubusercontent.com/boostorg/hana/master/cmake/FindHana.cmake"
               "${CMAKE_CURRENT_BINARY_DIR}/modules/FindHana.cmake")
-set(BOOST_HANA_CLONE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/ext/hana)
-find_package(Hana)
-include_directories(${BOOST_HANA_INCLUDE_DIR})
+set(Hana_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/ext/hana)
+find_package(Hana 0.6.0)
+include_directories(${Hana_INCLUDE_DIRS})
 
 file(DOWNLOAD "https://raw.githubusercontent.com/boostorg/hana/master/cmake/FindMeta.cmake"
               "${CMAKE_CURRENT_BINARY_DIR}/modules/FindMeta.cmake")
