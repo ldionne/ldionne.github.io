@@ -1,0 +1,71 @@
+<%
+require 'benchmark'
+require 'open3'
+require 'pathname'
+require 'tilt'
+require 'timeout'
+
+
+RANGE = (1...50).step(10).to_a + (50..2_000).step(25).to_a + (3_000..10_000).step(1_000).to_a
+
+def measure(header)
+    template = Pathname.new('benchmark_1.erb.cpp').expand_path
+    cpp = Pathname.new('__tmp.cpp').expand_path
+    clang = "~/code/llvm/release/bin/clang++" # <- My own modified Clang
+    command = "#{clang} -std=c++14 -fsyntax-only -ftemplate-depth=-1 #{cpp}"
+
+    # We throw away the first few measurements to put the required #includes
+    # in the disk cache and try to measure "hot".
+    throw_away = RANGE[0...3]
+
+    times = []
+    begin
+        (throw_away + RANGE).each do |n|
+            code = Tilt::ERBTemplate.new(template).render(nil, input_size: n, header: header)
+            cpp.write(code)
+            stdout, stderr, status = nil, nil, nil
+            Timeout::timeout(20) {
+                time = Benchmark.realtime {
+                    stdout, stderr, status = Open3.capture3(command)
+                }
+                raise "compilation error: #{stderr}\n\n#{code}" if not status.success?
+                times << [n, time]
+            }
+        end
+    rescue Timeout::Error
+        STDERR.puts "timed out on header #{header}"
+    end
+
+    return times.drop(throw_away.size)
+ensure
+    cpp.delete if cpp.exist?
+end
+
+%>
+
+{
+    "title": {
+        "text": "Compilation time for accessing a parameter pack"
+    },
+    "series": [
+        {
+            "name": "recursion",
+            "data": <%= measure('recursive.hpp') %>
+        }, {
+            "name": "multiple inheritance",
+            "data": <%= measure('flat.hpp') %>
+        }, {
+            "name": "void* trick",
+            "data": <%= measure('overload.hpp') %>
+        }, {
+            "name": "__nth_element",
+            "data": <%= measure('__nth_element.hpp') %>
+        }, {
+            "name": "std::tuple_element",
+            "data": <%= measure('tuple_element.hpp') %>
+        }, {
+            "name": "baseline",
+            "data": <%= measure('baseline.hpp') %>
+        }
+    ]
+}

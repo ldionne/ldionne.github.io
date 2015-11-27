@@ -65,3 +65,4 @@ include_directories(${Meta_INCLUDE_DIR})
 # Setup subdirectories
 ##############################################################################
 # add_subdirectory(revisiting-the-tiny-mpl)
+add_subdirectory(pack-indexing)
