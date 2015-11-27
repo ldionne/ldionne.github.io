@@ -3,7 +3,7 @@ layout: default
 title: About
 ---
 
-# Louis Dionne
+<img src="/public/LouisDionne.jpg" style="float:left; width: 30%; height: auto;" />
 
 I am a math and programming enthusiast seeking excellence in what I do.
 I work for [A9.com][], an Amazon company, writing C++ libraries and
