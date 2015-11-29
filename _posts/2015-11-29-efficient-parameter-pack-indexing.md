@@ -410,8 +410,14 @@ hope.
 
 Stay tuned!
 
+__Edit:__
+The patch for Clang has been proposed [here][patch.clang], and the one for
+libc++ [here][patch.libc++].
+
 
 <!-- Links -->
 [Boost.Hana]: https://github.com/boostorg/hana
 [kballo]: http://talesofcpp.fusionfenix.com/post-22/true-story-efficient-packing
+[patch.clang]: https://llvm.org/bugs/show_bug.cgi?id=25670
+[patch.libc++]: https://llvm.org/bugs/show_bug.cgi?id=25671
 [pdimov]: http://www.pdimov.com/cpp2/simple_cxx11_metaprogramming_2.html
