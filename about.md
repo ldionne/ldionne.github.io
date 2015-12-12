@@ -9,7 +9,7 @@ I am a 23 years old math and programming enthusiast seeking excellence
 in what I do. I work as a consultant, writing high quality C++ libraries
 and applications to solve various problems.
 
-My specialities are modern C++, generic library design and metaprogramming.
+My specialties are modern C++, generic library design and metaprogramming.
 I am an active member of the [Boost][] community, and I authored the
 [Boost.Hana][] library.
 
