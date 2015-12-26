@@ -5,15 +5,15 @@ require 'pathname'
 require 'tilt'
 
 
-RANGE = (0..1000).step(5)
-
 def measure(namespace)
     template = Pathname.new('benchmark_2.erb.cpp').expand_path
     cpp = Pathname.new('__tmp.cpp').expand_path
-    command = "clang++ -std=c++14 -o/dev/null -ftemplate-depth=-1 #{cpp}"
+    clang = "~/code/llvm/release/bin/clang++" # <- My own modified Clang
+    command = "#{clang} -std=c++14 -o/dev/null -ftemplate-depth=-1 #{cpp}"
 
     times = []
-    RANGE.each do |n|
+    (0..1000).step(10).each do |n|
+        puts "#{namespace}: #{n}/1000"
         code = Tilt::ERBTemplate.new(template).render(nil, input_size: n,
                                                            namespace: namespace)
         cpp.write(code)
@@ -35,7 +35,7 @@ end
 
 {
     "title": {
-        "text": "Compile-time behavior of creating a tuple"
+        "text": "Compile-time behavior of creating n tuples"
     },
     "xAxis": {
         "title": { "text": "Number of tuples" }
@@ -50,6 +50,9 @@ end
         }, {
             "name": "lambda",
             "data": <%= measure('lambda') %>
+        }, {
+            "name": "raw",
+            "data": <%= measure('raw') %>
         }, {
             "name": "baseline",
             "data": <%= measure('baseline') %>

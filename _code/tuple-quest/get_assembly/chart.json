@@ -47,12 +47,16 @@ end
         {
             "name": "atoms",
             "data": <%= count_assembly('atoms.erb.cpp') %>
-        },
-        {
+        }, {
             "name": "flat",
             "data": <%= count_assembly('flat.erb.cpp') %>
-        },
-        {
+        }, {
+            "name": "lambda",
+            "data": <%= count_assembly('lambda.erb.cpp') %>
+        }, {
+            "name": "raw",
+            "data": <%= count_assembly('raw.erb.cpp') %>
+        }, {
             "name": "baseline",
             "data": <%= count_assembly('baseline.erb.cpp') %>
         }

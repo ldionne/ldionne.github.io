@@ -13,8 +13,14 @@ add_custom_target(tuple-quest.nrvo
     USES_TERMINAL
 )
 
-add_custom_target(tuple-quest.get_compile
-    COMMAND erb chart.json
+add_custom_target(tuple-quest.get_compile1
+    COMMAND erb chart_1.json
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/get_compile
+    USES_TERMINAL
+)
+
+add_custom_target(tuple-quest.get_compile2
+    COMMAND erb chart_2.json
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/get_compile
     USES_TERMINAL
 )

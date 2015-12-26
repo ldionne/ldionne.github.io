@@ -5,40 +5,39 @@
 #define LAMBDA_HPP
 
 #include <cstddef>
-#include <utility>
 
-#include "../pack-indexing/overload.hpp"
+#include "nth_element.hpp"
 
 
 namespace lambda {
-template <typename ...T>
-auto make_storage(T const& ...t) {
-    return [=](auto const& f) -> decltype(auto) { return f(t...); };
-}
+    template <typename ...T>
+    auto make_storage(T const& ...t) {
+        return [=](auto const& f) -> decltype(auto) { return f(t...); };
+    }
 
-template <typename ...T>
-struct tuple {
-    using Storage = decltype(make_storage(std::declval<T>()...));
-    Storage storage_;
+    template <typename ...T>
+    struct tuple {
+        using Storage = decltype(make_storage(*static_cast<T*>(0)...));
+        Storage storage_;
 
-    tuple()
-        : storage_(make_storage(T()...))
-    { }
+        tuple()
+            : storage_(make_storage(T()...))
+        { }
 
-    explicit tuple(T const& ...t)
-        : storage_(make_storage(t...))
-    { }
-};
+        explicit tuple(T const& ...t)
+            : storage_(make_storage(t...))
+        { }
+    };
 
-template <std::size_t n, typename ...T>
-decltype(auto) get(tuple<T...> const& ts) {
-    using Nth = nth_element<n, T...>;
+    template <std::size_t n, typename ...T>
+    decltype(auto) get(tuple<T...> const& ts) {
+        using Nth = nth_element<n, T...>;
 
-    return ts.storage_([](auto const& ...t) -> Nth const& {
-        void const* addresses[] = {&t...};
-        return *static_cast<Nth const*>(addresses[n]);
-    });
-}
-}
+        return ts.storage_([](auto const& ...t) -> Nth const& {
+            void const* addresses[] = {&t...};
+            return *static_cast<Nth const*>(addresses[n]);
+        });
+    }
+} // end namespace lambda
 
 #endif

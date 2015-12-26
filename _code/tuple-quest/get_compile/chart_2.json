@@ -5,12 +5,14 @@ require 'pathname'
 require 'tilt'
 
 def measure(namespace)
-    template = Pathname.new('benchmark_1.erb.cpp').expand_path
+    template = Pathname.new('benchmark_2.erb.cpp').expand_path
     cpp = Pathname.new('__tmp.cpp').expand_path
-    command = "clang++ -std=c++14 -o/dev/null -ftemplate-depth=-1 #{cpp}"
+    clang = "~/code/llvm/release/bin/clang++" # <- My own modified Clang
+    command = "#{clang} -std=c++14 -o/dev/null -ftemplate-depth=-1 #{cpp}"
 
     times = []
-    (0..1000).step(5).each do |n|
+    (0..491).step(10).each do |n|
+        puts "#{namespace}: #{n} / 500"
         code = Tilt::ERBTemplate.new(template).render(nil, namespace: namespace, n: n)
         cpp.write(code)
         stdout, stderr, status = nil, nil, nil
@@ -31,7 +33,7 @@ end
 
 {
     "title": {
-        "text": "Compile-time behaviour of get on a 1000-element tuple"
+        "text": "Compile-time behaviour of getting the n-th element of a tuple"
     },
     "xAxis": {
         "title": {
@@ -49,6 +51,9 @@ end
         }, {
             "name": "lambda",
             "data": <%= measure('lambda') %>
+        }, {
+            "name": "raw",
+            "data": <%= measure('raw') %>
         }, {
             "name": "baseline",
             "data": <%= measure('baseline') %>

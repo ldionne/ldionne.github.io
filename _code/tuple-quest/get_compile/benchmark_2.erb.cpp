@@ -5,6 +5,7 @@
 #include "../baseline.hpp"
 #include "../flat.hpp"
 #include "../lambda.hpp"
+#include "../raw.hpp"
 namespace ns = <%= namespace %>;
 
 
@@ -14,10 +15,11 @@ struct x { };
 int main() {
     // We create a tuple with each implementation to really just benchmark
     // the compile-time of using `get`.
-    flat::tuple<    <%= (0..1000).map { |n| "x<#{n}>" }.join(', ') %>> t_flat;
-    atoms::tuple<   <%= (0..1000).map { |n| "x<#{n}>" }.join(', ') %>> t_atoms;
-    lambda::tuple<  <%= (0..1000).map { |n| "x<#{n}>" }.join(', ') %>> t_lambda;
-    baseline::tuple<<%= (0..1000).map { |n| "x<#{n}>" }.join(', ') %>> t_baseline;
+    flat::tuple<    <%= (0..500).map { |n| "x<#{n}>" }.join(', ') %>> t_flat;
+    atoms::tuple<   <%= (0..500).map { |n| "x<#{n}>" }.join(', ') %>> t_atoms;
+    lambda::tuple<  <%= (0..500).map { |n| "x<#{n}>" }.join(', ') %>> t_lambda;
+    raw::tuple<     <%= (0..500).map { |n| "x<#{n}>" }.join(', ') %>> t_raw;
+    baseline::tuple<<%= (0..500).map { |n| "x<#{n}>" }.join(', ') %>> t_baseline;
 
     ns::get<<%= n+0 %>>(t_<%= namespace %>);
     ns::get<<%= n+1 %>>(t_<%= namespace %>);
