@@ -13,13 +13,13 @@ struct x { };
 
 int main() {
     // instantiate the x<n>'s
-    <% (0..input_size+10).each do |n| %>
+    <% (1..input_size+10).each do |n| %>
         x<  <%= n %>  > x_<%= n %>;
     <% end %>
 
-    <% (0..input_size).each do |i| %>
+    <% (1..input_size).each do |i| %>
         ns::tuple<
-            <%= (0..10).map { |n| "x<#{n + i}>" }.join(', ') %>
+            <%= (1..10).map { |n| "x<#{n + i}>" }.join(', ') %>
         > t_<%= i %>;
     <% end %>
 }

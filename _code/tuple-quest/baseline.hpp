@@ -9,7 +9,9 @@
 
 namespace baseline {
     template <typename ...T>
-    struct tuple { };
+    struct tuple {
+        static constexpr std::size_t sizes[] = {sizeof(T)...};
+    };
 
     template <std::size_t n, typename Tuple>
     constexpr int get(Tuple const& t) {

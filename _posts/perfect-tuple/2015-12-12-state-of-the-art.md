@@ -163,26 +163,46 @@ two tuple implementations.
 
 Now's the time to get serious, because compile-time efficiency is an important
 point. We'll compare the two above implementations on several aspects. First,
-we'll want to measure how well our tuple scales when creating a tuple with a
-large number of elements. Then, we'll also want to check how well the `get`
-function scales when accessing different indices in a large tuple. For the
-first point, our benchmark code will look like this:
+we'll want to measure the sheer cost of instantiating tuples implemented in
+both ways. More specifically, we'll want to measure how well an implementation
+scales in terms of the size of the tuple created, and how well it scales in
+terms of the number of tuples instantiated (given a fixed tuple size). For
+the first aspect, our benchmark code will look like this:
 
 {% highlight c++ %}
 template <int i>
 struct x { };
 
 int main() {
-    tuple<x<0>, x<1>, ..., x<n>> t;
+    tuple<x1<0>, x1<1>, ..., x1<n>> t1;
+    tuple<x2<0>, x2<1>, ..., x2<n>> t2;
+    ...
+    tuple<x10<0>, x10<1>, ..., x10<n>> t10;
 }
 {% endhighlight %}
 
-Then, we'll want to check how long this takes to compile for different values
-of `n`, and for the two different implementations. Here's a chart showing the
-results:
+The methodology is simply to measure the compile-time of such a file for various
+values of `n`. The reason why we instantiate 10 different tuples every time is
+that it reduces the relative incertitude on the measurement. We're almost ready
+to look at the result, but before we do, let's pick a baseline to compare all
+implementations against:
 
+{% highlight c++ %}
+template <typename ...T>
+struct tuple {
+    static constexpr std::size_t sizes[] = {sizeof(T)...};
+};
+{% endhighlight %}
+
+This baseline is obviously not a valid tuple, but measuring it will still
+allow us to factor out some noise such as compiler startup time. Because
+of the `sizes` array, this will also allow us to factor out the cost of
+instantiating the elements of the tuple themselves. Here's a chart
+showing the results:
+
+<!-- ninja -C _code/build tuple-quest.make_compile1 -->
 <div class="chart" style="width:100%; height:400px;">
-<!-- TODO: tuple-quest/make_compile/chart.json -->
+TODO
 </div>
 
 As we can see, the first implementation, which used recursive atoms, is much
@@ -210,29 +230,122 @@ holder<n, Tn>
 {% endhighlight %}
 
 The trick here is that each `holder` is much, much shorter than a whole
-`tuple<T1, ..., Tn>`. Let's now take a look at the compile-time behaviour of
-the `get` function. To do this, we'll fix the size of a tuple to some value
-`n`, and we'll access a single element at different indices `i`:
+`tuple<T1, ..., Tn>`. OK; measuring the instantiation cost of large tuples
+is nice, but we'd also like to know how these techniques scales with respect
+to the number of different tuples created. To do this, we'll benchmark the
+following code:
 
 {% highlight c++ %}
 template <int i>
 struct x { };
 
 int main() {
-    tuple<x<0>, x<1>, ..., x<n>> t;
-    get<i>(t);
+    tuple<x<1>, x<2>, ..., x<10>> t1;
+    tuple<x<2>, x<3>, ..., x<11>> t2;
+    ...
+    tuple<x<n>, x<n+1>, ..., x<n+10>> tn;
 }
 {% endhighlight %}
 
-Here is a benchmark for `n = 300`:
+Here, we're arbitrarily setting what seems to be a sensible tuple size (`10`),
+and then measuring the time required to instantiate `n` tuples of that size.
+To make sure we're actually instantiating different tuple types, we shift the
+types of the elements of each tuple by one. Here's the result:
 
+<!-- ninja -C _code/build tuple-quest.make_compile2 -->
 <div class="chart" style="width:100%; height:400px;">
-<!-- TODO: tuple-quest/get_compile/chart.json -->
+TODO
 </div>
+
+<!-- TODO: COMMENT -->
+
+Now, creating tuples is fun, but accessing elements in a tuple is more fun.
+Hence, we'll also want to measure how well our implementations scale when
+accessing elements with the `get` function. Much like the previous benchmarks,
+there are mainly two interesting access patterns we can benchmark. The first
+one is to fix a tuple size, and to access varying numbers of elements inside
+the tuple. This pattern can be measured with the following benchmark:
+
+{% highlight c++ %}
+template <int i>
+struct x { };
+
+int main() {
+    tuple<x<0>, x<1>, ..., x<1000>> t;
+    get<0 * (1000/n)>(t);
+    get<1 * (1000/n)>(t);
+    ...
+    get<n * (1000/n)>(t);
+}
+{% endhighlight %}
+
+Here, we arbitrarily set the size of the tuple to `1000`, which is large enough,
+and then access `n` elements inside the tuple. Note that the `n` elements that
+we access are placed at constant intervals, and they are almost uniformly
+distributed in the $[0, 1000]$ interval. We do this to avoid accessing the
+first (or last) `n` elements, which would favor an implementation where
+accessing leading (or trailing) elements is faster. Also, while not shown
+here, we actually create a tuple of each implementation and only access
+elements of the implementation we're benchmarking. This is to factor out
+the initial cost of creating the tuple, which varies between implementations.
+Before we show the results, let's show the baseline that we'll use:
+
+{% highlight c++ %}
+template <std::size_t i, typename Tuple>
+constexpr int get(Tuple const&) {
+    return 0;
+}
+{% endhighlight %}
+
+Again, this is obviously not a correct implementation of `get`, but it will at
+least allow us to factor out the cost of instantiating the `get` function. Here
+is the result:
+
+<!-- ninja -C _code/build tuple-quest.get_compile1 -->
+<div class="chart" style="width:100%; height:400px;">
+TODO
+</div>
+
+<!-- TODO: COMMENT -->
+
+The second access pattern that we might want to measure is to fix a number of
+elements to access inside the tuple, and to let the indices of these elements
+grow larger and larger. This access pattern can be measured with the following
+benchmark:
+
+{% highlight c++ %}
+template <int i>
+struct x { };
+
+int main() {
+    tuple<x<0>, x<1>, ..., x<1000>> t;
+    get<n>(t);
+    get<n+1>(t);
+    get<n+2>(t);
+    get<n+3>(t);
+    get<n+4>(t);
+    get<n+5>(t);
+    get<n+6>(t);
+    get<n+7>(t);
+    get<n+8>(t);
+    get<n+9>(t);
+}
+{% endhighlight %}
+
+Here, we decide to access exactly `10` elements in the tuple. We then let the
+index of these elements vary. The result is:
+
+<!-- ninja -C _code/build tuple-quest.get_compile2 -->
+<div class="chart" style="width:100%; height:400px;">
+TODO
+</div>
+
+<!-- TODO: COMMENT
 
 If not wildly better, we can still clearly see that the second implementation
 is better than the first one. This is because it does not require instantiating
 several `get` overloads each time an index is accessed.
+ -->
 
 
 ## Runtime efficiency
