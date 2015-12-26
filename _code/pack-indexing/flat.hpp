@@ -1,6 +1,9 @@
 // Copyright Louis Dionne 2015
 // Distributed under the Boost Software License, Version 1.0.
 
+#ifndef NTH_ELEMENT_FLAT_HPP
+#define NTH_ELEMENT_FLAT_HPP
+
 template <std::size_t I, typename T>
 struct indexed {
     using type = T;
@@ -21,3 +24,5 @@ template <std::size_t I, typename ...Ts>
 using nth_element = typename decltype(select<I>(
     indexer<std::index_sequence_for<Ts...>, Ts...>{}
 ))::type;
+
+#endif
