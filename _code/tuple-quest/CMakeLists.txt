@@ -19,8 +19,14 @@ add_custom_target(tuple-quest.get_compile
     USES_TERMINAL
 )
 
-add_custom_target(tuple-quest.make_compile
-    COMMAND erb chart.json
+add_custom_target(tuple-quest.make_compile1
+    COMMAND erb chart_1.json
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/make_compile
+    USES_TERMINAL
+)
+
+add_custom_target(tuple-quest.make_compile2
+    COMMAND erb chart_2.json
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/make_compile
     USES_TERMINAL
 )
@@ -28,6 +34,7 @@ add_custom_target(tuple-quest.make_compile
 add_custom_target(tuple-quest DEPENDS
     tuple-quest.get_assembly
     tuple-quest.get_compile
-    tuple-quest.make_compile
+    tuple-quest.make_compile1
+    tuple-quest.make_compile2
     tuple-quest.nrvo
 )

@@ -1,0 +1,58 @@
+<%
+require 'benchmark'
+require 'open3'
+require 'pathname'
+require 'tilt'
+
+
+RANGE = (0..1000).step(5)
+
+def measure(namespace)
+    template = Pathname.new('benchmark_2.erb.cpp').expand_path
+    cpp = Pathname.new('__tmp.cpp').expand_path
+    command = "clang++ -std=c++14 -o/dev/null -ftemplate-depth=-1 #{cpp}"
+
+    times = []
+    RANGE.each do |n|
+        code = Tilt::ERBTemplate.new(template).render(nil, input_size: n,
+                                                           namespace: namespace)
+        cpp.write(code)
+        stdout, stderr, status = nil, nil, nil
+        time = Benchmark.realtime {
+            stdout, stderr, status = Open3.capture3(command)
+        }
+        raise "compilation error: #{stderr}\n\n#{code}" if not status.success?
+        times << [n, time]
+    end
+
+    return times
+
+ensure
+    cpp.delete if cpp.exist?
+end
+
+%>
+
+{
+    "title": {
+        "text": "Compile-time behavior of creating a tuple"
+    },
+    "xAxis": {
+        "title": { "text": "Number of tuples" }
+    },
+    "series": [
+        {
+            "name": "atoms",
+            "data": <%= measure('atoms') %>
+        }, {
+            "name": "flat",
+            "data": <%= measure('flat') %>
+        }, {
+            "name": "lambda",
+            "data": <%= measure('lambda') %>
+        }, {
+            "name": "baseline",
+            "data": <%= measure('baseline') %>
+        }
+    ]
+}
