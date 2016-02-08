@@ -10,7 +10,8 @@ In this post, we will look at the current state of the art for implementing
 tuples at the library level in C++. More specifically, we will look at two
 different techniques for implementing tuples, one using recursive templates
 and the other one using multiple inheritance. Both of these techniques are
-well known and documented, and they are presented here for completeness.
+well known and documented, and they are presented in this series for
+completeness.
 
 {% include series.html %}
 
@@ -78,11 +79,9 @@ this might look like is explained [here][ebo-impl]. Of course, that would
 require adjusting the implementation of the constructor and the `get` function,
 but those adjustments are almost trivial. Hence, we can say that with a little
 bit more work, this implementation strategy for tuples would be able to compress
-the storage of empty objects.
-
-Also, since we never use `constexpr`-unfriendly operations, we can mark our
-functions as `constexpr`. Hence, the above tuple is a literal type, i.e. one
-that can be constructed at compile-time.
+the storage of empty objects. Also, since we never use `constexpr`-unfriendly
+operations, we can mark our functions as `constexpr` and make the above tuple
+a literal type.
 
 ## Leveling up: multiple inheritance
 
@@ -153,11 +152,11 @@ literal type.
 ## Conclusion
 
 In this post, we have seen two techniques for implementing tuples at the
-library level. These techniques are currently used in real-world standard
+library level, both of which are currently used in real-world standard
 library implementations. libc++ uses the second technique, and last time I
-checked libstdc++ used the first technique. As we'll see later, the second
-technique turns out to be vastly superior, and libstdc++ should consider
-moving to it.
+checked libstdc++ used the first technique. As we'll see at the end of the
+series, the second technique turns out to be vastly superior, and libstdc++
+should really consider moving to it.
 
 Stay tuned for the next post, where I will introduce a technique using
 C++14 generic lambdas to implement tuples.
