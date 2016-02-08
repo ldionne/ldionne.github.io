@@ -18,13 +18,13 @@ namespace lambda {
 
     // Foldable
     template <typename Xs, typename F>
-    static constexpr decltype(auto) unpack(Xs&& xs, F&& f) {
+    decltype(auto) unpack(Xs&& xs, F&& f) {
         return static_cast<Xs&&>(xs).storage_(static_cast<F&&>(f));
     }
 
     // Functor
     template <typename Xs, typename F>
-    static constexpr auto transform(Xs&& xs, F const& f) {
+    auto transform(Xs&& xs, F const& f) {
         return static_cast<Xs&&>(xs).storage_([&f](auto&& ...xs) {
             return lambda::make_tuple(f(static_cast<decltype(xs)&&>(xs))...);
         });
@@ -32,7 +32,7 @@ namespace lambda {
 
     // Iterable
     template <typename Xs>
-    static constexpr bool is_empty(Xs const& xs) {
+    bool is_empty(Xs const& xs) {
         return xs.storage_([](auto const& ...xs) {
             return sizeof...(xs) == 0;
         });
@@ -40,7 +40,7 @@ namespace lambda {
 
     // MonadPlus
     template <typename Xs, typename Ys>
-    static constexpr auto concat(Xs&& xs, Ys&& ys) {
+    auto concat(Xs&& xs, Ys&& ys) {
         return static_cast<Xs&&>(xs).storage_([&](auto&& ...xs_) {
             return static_cast<Ys&&>(ys).storage_([&](auto&& ...ys_) {
                 return lambda::make_tuple(
@@ -52,7 +52,7 @@ namespace lambda {
     }
 
     template <typename Xs, typename X>
-    static constexpr auto prepend(Xs&& xs, X&& x) {
+    auto prepend(Xs&& xs, X&& x) {
         return static_cast<Xs&&>(xs).storage_([&](auto&& ...xs) {
             return lambda::make_tuple(
                 static_cast<X&&>(x),
@@ -62,7 +62,7 @@ namespace lambda {
     }
 
     template <typename Xs, typename X>
-    static constexpr auto append(Xs&& xs, X&& x) {
+    auto append(Xs&& xs, X&& x) {
         return static_cast<Xs&&>(xs).storage_([&](auto&& ...xs)  {
             return lambda::make_tuple(
                 static_cast<decltype(xs)&&>(xs)...,
