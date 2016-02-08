@@ -29,6 +29,16 @@ namespace lambda {
         { }
     };
 
+    template <>
+    struct tuple<> {
+        using Storage = decltype(make_storage());
+        Storage storage_;
+
+        tuple()
+            : storage_(make_storage())
+        { }
+    };
+
     template <std::size_t n, typename ...T>
     decltype(auto) get(tuple<T...> const& ts) {
         using Nth = nth_element<n, T...>;

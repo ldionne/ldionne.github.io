@@ -44,3 +44,6 @@ add_custom_target(tuple-quest DEPENDS
     tuple-quest.make_compile2
     tuple-quest.nrvo
 )
+
+add_executable(lambda test/lambda.cpp)
+add_test(lambda lambda)
