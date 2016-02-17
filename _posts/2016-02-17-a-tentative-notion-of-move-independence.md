@@ -20,6 +20,9 @@ by saying that it encourages moving twice from `object`, and that it should
 thus be avoided. This brings us to the question at hand: when is it okay to
 call `std::move` multiple times on the same object?
 
+> Note that the exact same question applies to `std::forward`, since this one
+> is essentially a "use `std::move` when you can".
+
 Well, first, if we don't do anything with the result of calling `std::move`,
 then it is obviously safe to call it multiple times on the same object:
 
@@ -118,13 +121,15 @@ are:
 {% highlight c++ %}
 template <typename Tuple>
 decltype(auto) f(Tuple&& t) {
-  std::get<2>(std::forward<Tuple>(t)); // just access the 3rd element
+  // just access the third element
+  std::get<2>(std::forward<Tuple>(t));
   return std::get<0>(std::forward<Tuple>(t));
 }
 
 template <typename Tuple>
 decltype(auto) g(Tuple&& t) {
-  std::get<2>(std::forward<Tuple>(t)); // again, just access it
+  // again, just access the third element
+  std::get<2>(std::forward<Tuple>(t));
   return std::get<1>(std::forward<Tuple>(t));
 }
 {% endhighlight %}
@@ -168,7 +173,10 @@ auto ghi_jkl = hana::slice_c<2, 4>(std::move(tuple));
 
 This will create two tuples containing the first two and the last two elements
 of the original `tuple`, moving them instead of doing a copy. This is safe to
-perform, since we're slicing the tuple at two non-overlapping ranges.
+perform, since we're slicing the tuple at two non-overlapping ranges. Plus,
+it wouldn't be equivalent to write `std::move(hana::slice_c<0, 2>(tuple))`,
+for the copy would have already been made inside of `hana::slice_c`, the
+library being unable to rely on the fact that `tuple` can be moved from.
 
 
 Conclusion
