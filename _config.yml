@@ -15,5 +15,5 @@ author:
 # Custom vars
 version:          1.0.0
 github:
-  repo:           https://github.com/poole/poole
+  repo:           https://github.com/ldionne/ldionne.github.io
 gems:             [jekyll-paginate]
