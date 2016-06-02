@@ -6,8 +6,8 @@ title: About
 # Louis Dionne
 
 I am a 24 years old math and programming enthusiast seeking excellence
-in what I do. I work as a consultant, writing high quality C++ libraries
-and applications to solve various problems.
+in what I do. I work for A9.com, writing high quality C++ libraries and
+applications that power Amazon's search engine.
 
 My specialties are modern C++, generic library design and metaprogramming.
 I am an active member of the [Boost][] community, and I authored the
@@ -16,8 +16,6 @@ I am an active member of the [Boost][] community, and I authored the
 My fancier interests revolve around functional programming, category
 theory and their connection with C++ (meta)programming. Besides that,
 I also enjoy hiking, dark beer and classical music.
-
-I'm currently available for consulting; just [get in touch][mail].
 
 [Resume](/resume.pdf) &bull;
 [GitHub](http://github.com/ldionne) &bull;
