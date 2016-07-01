@@ -414,6 +414,11 @@ __Edit:__
 The patch for Clang has been proposed [here][patch.clang], and the one for
 libc++ [here][patch.libc++].
 
+__Edit (30/06/2016):__
+The patch has been merged into Clang. Thus, Clang will now have a
+`__type_pack_element<n, T...>` intrinsic equivalent to the
+`__nth_element` presented in this post.
+
 
 <!-- Links -->
 [Boost.Hana]: https://github.com/boostorg/hana
