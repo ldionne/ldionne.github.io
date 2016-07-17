@@ -146,6 +146,17 @@
     }
 }
 
+\PersonalProject{Metabench}{http://ldionne.github.io/metabench}
+{A simple framework for doing compile-time benchmarks}{
+    Implemented a self-contained CMake module to perform compile-time benchmarks
+    of C++ metaprograms. Such benchmarks are very useful when writing a
+    metaprogramming library, where the performance of the library must be
+    measured in terms of compilation time. The module works by having the user
+    write \myhref{http://en.wikipedia.org/wiki/ERuby}{ERB} templates that are
+    then used to generate C++ programs. The C++ programs are compiled and various
+    metrics such as compilation time, link time and executable size are gathered.
+    The module generates HTML5 charts to easily visualize the metrics.}
+
 \PersonalProject{mpl11}{http://github.com/ldionne/mpl11}
 {Conception and implementation of a C++11 replacement for the Boost.MPL}{
     Reimplemented the functionality of the Boost.MPL library using new
