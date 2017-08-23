@@ -5,17 +5,18 @@ title: About
 
 # Louis Dionne
 
-I am a 24 years old math and programming enthusiast seeking excellence
-in what I do. I work for [A9.com][], writing high quality C++ libraries and
-applications that power Amazon's search engine.
+I am a math and programming enthusiast seeking excellence in what I do.
+I work for [A9.com][], an Amazon company, writing C++ libraries and
+applications that power product search on [amazon.com][].
 
 My specialties are modern C++, generic library design and metaprogramming.
-I am an active member of the [Boost][] community, and I authored the
-[Boost.Hana][] library.
+I am a member of the C++ Standards Committee and the [Boost][] community,
+where I authored the [Boost.Hana][] library. I often speak at C++ conferences
+like [CppCon][] and [C++Now][].
 
 My fancier interests revolve around functional programming, category
 theory and their connection with C++ (meta)programming. Besides that,
-I also enjoy hiking, dark beer and classical music.
+I also enjoy outdoor sports, dark beer and music.
 
 [Resume]({{ site.baseurl }}resume.pdf) &bull;
 [Talks I've given]({{ site.baseurl }}talks) &bull;
@@ -25,6 +26,9 @@ I also enjoy hiking, dark beer and classical music.
 
 <!-- Links -->
 [A9.com]: http://a9.com
+[amazon.com]: https://www.amazon.com
 [Boost.Hana]: https://github.com/boostorg/hana
 [Boost]: http://www.boost.org
+[C++Now]: http://cppnow.org
+[CppCon]: https://cppcon.org
 [mail]: mailto:ldionne.2@gmail.com
