@@ -18,8 +18,8 @@ My fancier interests revolve around functional programming, category
 theory and their connection with C++ (meta)programming. Besides that,
 I also enjoy outdoor sports, dark beer and music.
 
-[Resume]({{ site.baseurl }}resume.pdf) &bull;
-[Talks I've given]({{ site.baseurl }}talks) &bull;
+[Resume](/resume.pdf) &bull;
+[Talks I've given](/talks) &bull;
 [GitHub](http://github.com/ldionne) &bull;
 [Mail][mail]
 

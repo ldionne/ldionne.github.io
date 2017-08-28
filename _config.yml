@@ -6,7 +6,6 @@ title:            Louis Dionne
 tagline:          "Programming and Categories, Oh My!"
 url:              http://ldionne.com
 paginate:         3
-baseurl:          /
 author:
   name:           Louis Dionne
   url:            https://github.com/ldionne
