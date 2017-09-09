@@ -10,7 +10,7 @@ I work for [A9.com][], an Amazon company, writing C++ libraries and
 applications that power product search on [amazon.com][].
 
 My specialties are modern C++, generic library design and metaprogramming.
-I am a member of the C++ Standards Committee and the [Boost][] community,
+I am a member of the C++ Standards Committee and of the [Boost][] community,
 where I authored the [Boost.Hana][] library. I often speak at C++ conferences
 like [CppCon][] and [C++Now][].
 
