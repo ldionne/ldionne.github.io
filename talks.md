@@ -6,7 +6,7 @@ title: Talks I've given
 # Here's a full list of talks I've given
 
 ### 2017
-- Runtime Polymorphism: Back to the Basics @ [CppCon][], Bellevue ([slides](http://ldionne.github.io/cppcon-2017-runtime-polymorphism))
+- Runtime Polymorphism: Back to the Basics @ [CppCon][], Bellevue ([slides](http://ldionne.github.io/cppcon-2017-runtime-polymorphism)/[video](https://youtu.be/gVGtNFg4ay0))
 - Fun with Boost.Hana @ [C++Now][], Aspen ([slides](http://ldionne.github.io/cppnow-2017-fun-with-boost-hana)/[video](https://youtu.be/emHnx_ZG0qc))
 - Metaprogramming in C++14 and beyond @ [ACCU](https://accu.org/index.php/conferences/accu_conference_2017), Bristol ([slides](http://ldionne.github.io/accu-2017-metaprogramming-in-cpp14)/[video](https://youtu.be/Oc4enqNH-Mc))
 
