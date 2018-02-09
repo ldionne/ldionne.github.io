@@ -3,7 +3,7 @@ layout: default
 title: Talks I've given
 ---
 
-# Here's a full list of talks I've given
+# Talks I've given
 
 ### 2017
 - Runtime Polymorphism: Back to the Basics @ [CppCon][], Bellevue ([slides](http://ldionne.github.io/cppcon-2017-runtime-polymorphism)/[video](https://youtu.be/gVGtNFg4ay0))

@@ -19,9 +19,10 @@ theory and their connection with C++ (meta)programming. Besides that,
 I also enjoy outdoor sports, dark beer and music.
 
 [Resume](/resume.pdf) &bull;
-[Talks I've given](/talks) &bull;
 [GitHub](http://github.com/ldionne) &bull;
-[Mail][mail]
+[Mail][mail] &bull;
+[Talks I've given](/talks) &bull;
+[Papers I've written](/papers)
 
 
 <!-- Links -->
