@@ -124,9 +124,9 @@ generalized type instead of a concept.
 > __Note__: Obviously, there is more than a single model of `Lazy(T)`, since
 > I just wrote two different models, one with type erasure and one without it.
 > However, what I mean by "only one model" is that they are all equivalent, in
-> some way which I'm still trying to define. I think it what I mean is unique
-> up to unique isomorphism, but I don't grok the details well enough to be
-> sure yet.
+> some way which I'm still trying to define. I think what I mean is unique up
+> to unique isomorphism, but I don't grok the details well enough to be sure
+> yet.
 
 Anyway, the important point is that I'll refer to `_lazy<F, Args...>`
 has having a _generalized type_ of `Lazy(T)` to mean that `eval`uating
