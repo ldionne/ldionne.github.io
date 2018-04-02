@@ -44,6 +44,21 @@
 
 \cventry{Jun 2016 -- present}{Software Development Engineer}{\myhref{http://a9.com}{A9.com (an Amazon company)}}{Palo Alto}{}{
     Member of the search infrastructure team powering Amazon's search engine.
+    Notable contributions:
+    \begin{itemize}
+        \item Replace parts of the internal key-value store with a lock-free
+              prefix tree backed by a variant of RCU and a custom allocator
+              allowing the structure to be stored in a memory mapped file.
+              Achieved throughput improvement of more than 50\% for real-time
+              updates.
+        \item Replace the component that applies real-time updates to search
+              indices by a new one that scales better.
+        \item Played key role in the low-level design of a novel query processing
+              pipeline allowing the space and time cost of any query to be bounded.
+              Achieved significant fleet cost reduction.
+        \item Pioneer a C++ library of high-quality fundamental utilities for
+              use throughout Amazon.
+    \end{itemize}
 }
 
 \cventry{Dec 2014 -- Jun 2016}{C++ consulting}{}{}{(finance, embedded systems)}{
