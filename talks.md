@@ -5,6 +5,10 @@ title: Talks I've given
 
 # Talks I've given
 
+### 2018
+- Runtime Polymorphism: Back to the Basics @ [C++Now][], Aspen ([slides](http://ldionne.github.io/cppnow-2018-runtime-polymorphism)/[video](https://youtu.be/OtU51Ytfe04))
+- The Object Upside Down @ [C++Now][], Aspen ([slides](http://ldionne.github.io/cppnow-2018-empty-objects)/[video](https://youtu.be/yTb6xz_FSkY))
+
 ### 2017
 - Runtime Polymorphism: Back to the Basics @ [CppCon][], Bellevue ([slides](http://ldionne.github.io/cppcon-2017-runtime-polymorphism)/[video](https://youtu.be/gVGtNFg4ay0))
 - Fun with Boost.Hana @ [C++Now][], Aspen ([slides](http://ldionne.github.io/cppnow-2017-fun-with-boost-hana)/[video](https://youtu.be/emHnx_ZG0qc))
@@ -18,17 +22,17 @@ title: Talks I've given
 - Podcast about Boost.Hana @ [CppCast][] ([audio](http://cppcast.com/2016/04/louis-dionne))
 
 ### 2015
-- Metaprogramming: a paradigm shift @ [CppCon][], Bellevue ([slides](http://ldionne.github.io/hana-cppcon-2015)/[video](https://youtu.be/cg1wOINjV9U))
-- Metaprogramming: a paradigm shift @ [C++Now][], Aspen ([slides](http://ldionne.github.io/hana-cppnow-2015)/[video](http://youtu.be/Z2ABRaQiFHs))
+- Metaprogramming: a paradigm shift @ [CppCon][], Bellevue ([slides](http://ldionne.github.io/cppcon-2015-hana)/[video](https://youtu.be/cg1wOINjV9U))
+- Metaprogramming: a paradigm shift @ [C++Now][], Aspen ([slides](http://ldionne.github.io/cppnow-2015-hana)/[video](http://youtu.be/Z2ABRaQiFHs))
   <br>_Awards for the best presentation and the most inspiring presentation_
 
 ### 2014
-- Metaprogramming in C++14 @ [OpenCode XXII][OpenCode], Québec ([french slides](http://ldionne.github.io/hana-opencode-xxii))
-- Hana: Expressive metaprogramming @ [CppCon][], Bellevue ([slides](http://ldionne.github.io/hana-cppcon-2014)/[video](https://www.youtube.com/watch?v=L2SktfaJPuU))
-- Towards painless metaprogramming @ [C++Now][], Aspen ([slides](http://ldionne.github.io/mpl11-cppnow-2014)/[video](https://www.youtube.com/watch?v=8c0aWLuEO0Y))
+- Metaprogramming in C++14 @ [OpenCode XXII][OpenCode], Québec ([french slides](http://ldionne.github.io/opencode-xxii-hana))
+- Hana: Expressive metaprogramming @ [CppCon][], Bellevue ([slides](http://ldionne.github.io/cppcon-2014-hana)/[video](https://www.youtube.com/watch?v=L2SktfaJPuU))
+- Towards painless metaprogramming @ [C++Now][], Aspen ([slides](http://ldionne.github.io/cppnow-2014-mpl11)/[video](https://www.youtube.com/watch?v=8c0aWLuEO0Y))
 
 ### 2013
-- A system for resource deadlock prevention @ [C++Now][], Aspen ([slides](http://ldionne.github.io/d2-cppnow-2013)/[video](https://www.youtube.com/watch?v=Re67U4zAN-M))
+- A system for resource deadlock prevention @ [C++Now][], Aspen ([slides](http://ldionne.github.io/cppnow-2013-d2)/[video](https://www.youtube.com/watch?v=Re67U4zAN-M))
 - Deadlock detection with d2 @ [OpenCode XII][OpenCode], Québec ([slides](http://ldionne.github.io/d2-opencode12))
 - Concept based overloading in C++ @ [OpenCode IX][OpenCode], Québec ([slides](http://docs.google.com/presentation/d/1HpjEz6dJauNoBxMGWzaNuOOoiVwqgISTNWNTwuOo-_8/edit?usp=sharing))
 
