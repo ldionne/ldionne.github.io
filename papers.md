@@ -9,10 +9,13 @@ title: Papers I've written
 - [p0732](http://wg21.link/p0732) - Class Types in Non-Type Template Parameters
   <br>_Was voted into C++20_
 - [p0784](http://wg21.link/p0784) - Standard containers and constexpr
+  <br>_Was voted into C++20_
 - [p0980](http://wg21.link/p0980) - Making `std::string` constexpr
+  <br>_Was voted into C++20_
 - [p1002](http://wg21.link/p1002) - Try-catch blocks in constexpr functions
   <br>_Was voted into C++20_
 - [p1004](http://wg21.link/p1004) - Making `std::vector` constexpr
+  <br>_Was voted into C++20_
 - [p1006](http://wg21.link/p1006) - Constexpr in `std::pointer_traits`
   <br>_Was voted into C++20_
 - [p1263](http://wg21.link/p1263) - Controlling the instantiation of vtables and RTTI
